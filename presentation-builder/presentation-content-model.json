@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "timerSeconds": 30,
+    "mouseAdvance": true,
+    "demoButton": {
+      "enabled": false,
+      "label": "Open live demo",
+      "url": "/",
+      "matchSlideId": "live-demo"
+    }
+  },
+  "slides": [
+    {
+      "type": "title",
+      "title": "Project Title Here",
+      "subtitle": "Program / Course · Context",
+      "presenter": "Presenter Name",
+      "presenter_email": "something@smth.com",
+      "logoImage": "img/logo.png",
+      "logoText": "ABC"
+    }
+   
+      ]
+}
+
