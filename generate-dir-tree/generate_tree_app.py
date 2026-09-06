@@ -115,6 +115,50 @@ def setup_logging(level_name: str) -> logging.Logger:
     return logging.getLogger("TreeGenerator")
 
 
+class GenerateTreeApp:
+    """Application wrapper for directory-tree generation."""
+
+    def __init__(self, config_path=None, input_dir=None, output_dir=None, output_filename=None):
+        self.base_dir = Path(__file__).resolve().parent
+        self.config_path = Path(config_path or self.base_dir / "config.json")
+        self.overrides = {
+            "input_dir": input_dir,
+            "output_dir": output_dir,
+            "output_filename": output_filename,
+        }
+
+    def run(self):
+        config = ConfigLoader(self.config_path).load()
+        self._apply_overrides(config)
+        self._resolve_paths(config)
+
+        logger = setup_logging(getattr(config, "log_level", "INFO"))
+        generator = TreeGenerator(config, logger)
+        tree_str = generator.generate()
+        return generator.save(tree_str)
+
+    def _apply_overrides(self, config):
+        if self.overrides["input_dir"] is not None:
+            config.root_dir = Path(self.overrides["input_dir"]).resolve()
+
+        output_file = Path(config.output_file)
+        if self.overrides["output_dir"] is not None:
+            output_dir = Path(self.overrides["output_dir"]).resolve()
+            output_file = output_dir / (output_file.name or "directory_tree.txt")
+        if self.overrides["output_filename"] is not None:
+            output_file = output_file.parent / self.overrides["output_filename"]
+        config.output_file = output_file
+
+    def _resolve_paths(self, config):
+        root_dir = Path(config.root_dir)
+        if not root_dir.is_absolute():
+            config.root_dir = self.base_dir / root_dir
+
+        output_file = Path(config.output_file)
+        if not output_file.is_absolute():
+            config.output_file = self.base_dir / (output_file or "directory_tree.txt")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate a pretty-printed directory tree.")
     parser.add_argument("--config", default="config.json", help="Path to config.json")

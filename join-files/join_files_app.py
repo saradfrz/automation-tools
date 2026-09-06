@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-join_files.py
+join_files_app_app.py
 
 Joins the text content of all files inside an input folder into a single
 output file. Supports recursive traversal and extension filtering.
@@ -12,13 +12,13 @@ are optional and override the corresponding config.json value when supplied.
 Usage examples (run from the repository root):
 
     # Use everything from config.json as-is
-    python join_files.py
+    python join_files_app.py
 
     # Point to a different config file
-    python join_files.py --config my_config.json
+    python join_files_app.py --config my_config.json
 
     # Override individual config.json values from the CLI
-    python join_files.py --input-dir other_input --recursive
+    python join_files_app.py --input-dir other_input --recursive
 """
 
 from __future__ import annotations
@@ -246,6 +246,40 @@ class FileJoiner:
 
         self.write_output(joined_text)
         return self.config.output_file
+
+
+class JoinFilesApp:
+    """Application wrapper for the file joining pipeline."""
+
+    def __init__(
+        self,
+        config_path=None,
+        input_dir=None,
+        output_dir=None,
+        output_filename=None,
+    ):
+        self.base_dir = Path(__file__).resolve().parent
+        self.config_path = Path(config_path or self.base_dir / "config.json")
+        self.overrides = {
+            "input_dir": input_dir,
+            "output_dir": output_dir,
+            "output_filename": output_filename,
+        }
+
+    def run(self):
+        config = ConfigLoader(self.config_path).load()
+        for key, value in self.overrides.items():
+            if value is not None:
+                if key in ("input_dir", "output_dir"):
+                    value = Path(value).resolve()
+                setattr(config, key, value)
+
+        if not Path(config.input_dir).is_absolute():
+            config.input_dir = self.base_dir / config.input_dir
+        if not Path(config.output_dir).is_absolute():
+            config.output_dir = self.base_dir / config.output_dir
+
+        return FileJoiner(FileJoinerConfig.from_namespace(config)).run()
 
 
 def parse_args() -> argparse.Namespace:
