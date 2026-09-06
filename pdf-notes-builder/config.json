@@ -1,0 +1,21 @@
+{
+  "dir": {
+    "input": "input",
+    "output": "output",
+    "output_html": "output",
+    "logs": "logs"
+  },
+  "extraction": {
+    "output_filename_prefix": "class_notes",
+    "timestamp_format": "%Y%m%d_%H%M%S",
+    "file_extension": ".pdf",
+    "page_separator": "\n\n--- Page {page_number} ---\n\n",
+    "document_separator": "\n\n===== {file_name} =====\n\n",
+    "encoding": "utf-8"
+  },
+  "retry": {
+    "max_attempts": 3,
+    "delay_seconds": 2,
+    "backoff_multiplier": 2
+  }
+}
