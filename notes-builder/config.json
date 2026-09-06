@@ -1,0 +1,22 @@
+{
+  "dir": {
+    "input": "input",
+    "output_html": "output",
+    "logs": "logs",
+    "models": "models"
+  },
+  "ocr": {
+    "languages": ["en", "pt"],
+    "gpu": false,
+    "detail": 0,
+    "paragraph": true
+  },
+  "output": {
+    "filename_prefix": "class_notes"
+  },
+  "retry": {
+    "max_attempts": 3,
+    "delay_seconds": 2
+  },
+  "supported_extensions": [".png", ".PNG", ".jpg", ".JPG", ".jpeg", ".JPEG"]
+}
