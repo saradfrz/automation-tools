@@ -1,0 +1,31 @@
+{
+  "input_dir": "C:\\projects\\supply-chain-capstone",
+  "output_dir": "output",
+  "output_filename": "rag_project.txt",
+  "recursive": true,
+  "extensions": null,
+  "encoding": "utf-8",
+  "encoding_fallbacks": [
+    "utf-8-sig",
+    "utf-16",
+    "cp1252",
+    "latin-1"
+  ],
+  "separator": "\n\n",
+  "include_filename_header": true,
+  "exclude_dirs": [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "venv",
+    "node_modules",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".idea",
+    ".vscode",
+    ".copilot",
+    "data",
+    "logs",
+    "static"
+  ]
+}
