@@ -1,0 +1,37 @@
+# Python caches and tooling
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+
+# Generated application files
+**/logs/*
+!**/logs/.gitkeep
+*.log
+**/input/*
+!**/input/.gitkeep
+**/output/*
+!**/output/.gitkeep
+
+# IDE and editor files
+.idea/
+.vscode/*.code-workspace
+
+# Operating-system files
+.DS_Store
+Thumbs.db
