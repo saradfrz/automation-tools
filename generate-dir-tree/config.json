@@ -1,0 +1,9 @@
+{
+  "root_dir": "",
+  "max_depth": null,
+  "show_hidden": false,
+  "ignore_dirs": [".git", "__pycache__", ".venv", "venv", "node_modules", ".idea", ".mypy_cache"],
+  "ignore_files": [".DS_Store"],
+  "output_file": "",
+  "log_level": "INFO"
+}
